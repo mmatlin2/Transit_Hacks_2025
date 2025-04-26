@@ -154,4 +154,3 @@ with tab3:
     ax.set_ylabel("Number of Stations")
     st.pyplot(fig)
 # ╰────────────────────────────────────────────────────────╯
-
