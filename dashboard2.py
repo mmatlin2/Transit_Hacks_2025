@@ -115,8 +115,11 @@ def load_train():
 
 
 def summary_table(series):
+    # get describe() output and turn into a DataFrame
     df_desc = series.describe().reset_index()
     df_desc.columns = ["Statistic", "Value"]
+    # drop the raw “count” row
+    df_desc = df_desc[df_desc["Statistic"] != "count"]
     return dash_table.DataTable(
         columns=[{"name": i, "id": i} for i in df_desc.columns],
         data=df_desc.to_dict("records"),
@@ -124,6 +127,7 @@ def summary_table(series):
         style_cell={"textAlign": "left", "padding": "6px"},
         style_header={"backgroundColor": "#f0f0f0", "fontWeight": "bold"}
     )
+
 
 # Legend for continuous colormaps
 def legend_div(cmap, label):
