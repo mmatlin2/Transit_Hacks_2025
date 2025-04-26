@@ -10,7 +10,7 @@ import dash_table
 import plotly.express as px
 from branca.colormap import LinearColormap
 
-# ───────── CONFIG & DATA ─────────
+
 DATE         = "2012-10-01"
 DAYTYPE      = "Weekday"
 THRESHOLD    = 100
@@ -115,10 +115,8 @@ def load_train():
 
 
 def summary_table(series):
-    # get describe() output and turn into a DataFrame
     df_desc = series.describe().reset_index()
     df_desc.columns = ["Statistic", "Value"]
-    # drop the raw “count” row
     df_desc = df_desc[df_desc["Statistic"] != "count"]
     return dash_table.DataTable(
         columns=[{"name": i, "id": i} for i in df_desc.columns],
@@ -128,8 +126,6 @@ def summary_table(series):
         style_header={"backgroundColor": "#f0f0f0", "fontWeight": "bold"}
     )
 
-
-# Legend for continuous colormaps
 def legend_div(cmap, label):
     n_steps = 6
     step_values = [cmap.vmin + i*(cmap.vmax-cmap.vmin)/(n_steps-1) for i in range(n_steps)]
@@ -256,7 +252,7 @@ def static_legend_div(color, label):
                         "display": "inline-block", "marginLeft": "10px"})
     ], style={"padding": "4px", "marginRight": "15px", "display": "inline-block"})
 
-# Dash app\app = dash.Dash(__name__)
+
 app = dash.Dash(__name__)
 app.title = "Chicago Transit Dashboard"
 
